@@ -34,7 +34,7 @@ from functions import *
 
 RDK = robolink.Robolink()
 step_reader = STEPControl_Reader()
-my_box = step_reader.ReadFile('/Users/eceyucer/Desktop/Kodlama/GSU/ Bitirme/deneme3/example.stp')
+my_box = step_reader.ReadFile('example.stp')
 step_reader.TransferRoot()
 shape = step_reader.Shape()
 explorer = TopExp_Explorer()
@@ -53,19 +53,10 @@ grupFace = points_of_each_solid(solids)
 reference_frame = RDK.Item('KazanFrame', ITEM_TYPE_FRAME)
 ref_reference = reference_frame.Pose()
 
-df = pd.read_csv('CurvePoints.csv')
-tampon = pd.read_csv('curve_tampons.csv')
-first_shortest_path = pd.read_csv('first_shortest_path.csv')
-second_shortest_path = pd.read_csv('second_shortest_path.csv')
-
-RDK.setCollisionActive(COLLISION_ON)
-
-liste_1 = [(1196, -670, -88), (1196, -670, -113), (1196, -670, -138), (1196, -670, -163), (1196, -670, -188), (1196, -645, -188), (1196, -645, -213), (1196, -620, -213), 
-        (1171, -620, -213), (1171, -620, -238), (1171, -595, -238), (1146, -595, -238), (1146, -595, -263), (1146, -570, -263), (1121, -570, -263), (1121, -570, -288), 
-        (1121, -545, -288), (1096, -545, -288)] #righttop -> 155_1, 25lik
-liste_2=[(1365, -535, -230), (1340, -535, -230), (1315, -535, -230), (1290, -535, -230), (1265, -535, -230), (1240, -535, -230), (1215, -535, -230), (1190, -535, -230), 
-        (1165, -535, -230), (1165, -560, -230), (1140, -560, -230), (1140, -585, -230), (1115, -585, -230), (1115, -610, -230), (1090, -610, -230), (1090, -635, -230), 
-        (1065, -635, -230), (1065, -660, -230), (1040, -660, -230)] #25lik
+df = pd.read_csv('Welding_Datas/CurvePoints.csv')
+tampon = pd.read_csv('Welding_Datas/curve_tampons.csv')
+first_shortest_path = pd.read_csv('Welding_Datas/first_shortest_path.csv')
+second_shortest_path = pd.read_csv('Welding_Datas/second_shortest_path.csv')
 
 RDK.setCollisionActive(COLLISION_ON)
 robot.setSpeed(10)
@@ -130,6 +121,7 @@ for index, row in df.iterrows():
             continue
         else:
             raise e
+exit()
 robot.setSpeed(10)
 #Returns from the last point of welding with a* algorithm without collision
 for index, row in liste2.iterrows():
@@ -157,3 +149,4 @@ robot.setSpeed(10)
 target1 = RDK.Item('Target 1')
 robot.MoveL(target1)
 print("Time:", time.time() - start_time)
+RDK.setCollisionActive(COLLISION_OFF)

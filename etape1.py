@@ -30,7 +30,7 @@ from functions import *
 
 RDK = robolink.Robolink()
 step_reader = STEPControl_Reader()
-my_box = step_reader.ReadFile('/Users/eceyucer/Desktop/Kodlama/GSU/ Bitirme/deneme3/example.stp')
+my_box = step_reader.ReadFile('example.stp')
 step_reader.TransferRoot()
 shape = step_reader.Shape()
 explorer = TopExp_Explorer()
@@ -327,7 +327,7 @@ else:
     columns = ['x', 'y', 'z', 'rx', 'ry', 'rz']
     print(collision_off_points)
     df1 = pd.DataFrame(collision_off_points, columns=columns)
-    csv_file1 = "CurvePoints.csv"
+    csv_file1 = "Welding_Datas/CurvePoints.csv"
     if os.path.exists(csv_file1):
         df1.to_csv(csv_file1, mode='a', header=False, index=False)
     else:
@@ -339,7 +339,7 @@ else:
     columns2 = ['curve', 'tamponx', 'tampony', 'tamponz']
     df2 = pd.DataFrame(curve_tampon, columns=columns2)
     # İkinci CSV dosyasına ekleme
-    csv_file2 = "curve_tampons.csv"
+    csv_file2 = "Welding_Datas/curve_tampons.csv"
     if os.path.exists(csv_file2):
         df2.to_csv(csv_file2, mode='a', header=False, index=False)
     else:

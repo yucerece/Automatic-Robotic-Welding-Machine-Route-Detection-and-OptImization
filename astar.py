@@ -37,7 +37,7 @@ from functions import *
 
 RDK = robolink.Robolink()
 step_reader = STEPControl_Reader()
-my_box = step_reader.ReadFile('/Users/eceyucer/Desktop/Kodlama/GSU/ Bitirme/deneme3/example.stp')
+my_box = step_reader.ReadFile('example.stp')
 step_reader.TransferRoot()
 shape = step_reader.Shape()
 explorer = TopExp_Explorer()
@@ -191,7 +191,7 @@ if __name__ == '__main__':
 
     print(len(obstacles))
 
-    csv_file1 = "curve_tampons.csv"
+    csv_file1 = "Welding_Datas/curve_tampons.csv"
     df1 = pd.read_csv(csv_file1)
     first_curve = int(df1.iloc[0][0]) + 1
     last_curve = int(df1.iloc[-1][0]) + 1
@@ -227,7 +227,7 @@ if __name__ == '__main__':
     columns = ['x', 'y', 'z']
     df = pd.DataFrame(astar.Path, columns=['x', 'y', 'z'])
     df.loc[len(df)] = frac_start
-    csv_file = "first_shortest_path.csv"
+    csv_file = "Welding_Datas/first_shortest_path.csv"
     df.to_csv(csv_file, mode='w', index=False)
 
 
@@ -262,5 +262,5 @@ if __name__ == '__main__':
     columns = ['x', 'y', 'z']
     df = pd.DataFrame(astar.Path, columns=['x', 'y', 'z'])
     df.loc[len(df)] = frac_start
-    csv_file = "second_shortest_path.csv"
+    csv_file = "Welding_Datas/second_shortest_path.csv"
     df.to_csv(csv_file, mode = 'w', index=False)
