@@ -1,5 +1,6 @@
 # Welding Path Planning and Execution with RoboDK and OCC
 
+## English
 This project aims to perform welding path planning and execution using RoboDK and the OpenCASCADE (OCC) libraries. It involves the following key steps:
 1. **Reading and Processing CAD Data**: Parsing and analyzing STEP files to identify and extract relevant geometric information.
 2. **Path Planning with A star Algorithm**: Using the A* algorithm for 3D path planning to determine the shortest collision-free path.
@@ -82,5 +83,90 @@ python interface.py
 
 ## References
 This code is adapted from the A* 3D path planning implementation by zhm-real. The original implementation can be found at:
+https://github.com/zhm-real/PathPlanning/blob/master/Search_based_Planning/Search_3D/Astar3D.py
+
+## Français
+Ce projet vise à effectuer la planification et l'exécution de trajectoires de soudage en utilisant RoboDK et les bibliothèques OpenCASCADE (OCC). Il comprend les étapes clés suivantes :
+1. **Lecture et Traitement des Données CAO**: Analyse et extraction des informations géométriques pertinentes à partir des fichiers STEP.
+2. **Planification de Trajectoire avec l'Algorithme A étoile**: Utilisation de l'algorithme A* pour la planification de trajectoire en 3D afin de déterminer le chemin le plus court sans collision.
+3. **Détection des Collisions et Ajustement des Angles**: Ajustement des angles du robot pour éviter les collisions pendant les opérations de soudage.
+4. **Exécution des Trajectoires de Soudage**: Utilisation de RoboDK pour déplacer le robot le long des trajectoires planifiées pour le soudage.
+
+## Exigences
+
+- Python 3.x
+- RoboDK
+- OpenCASCADE (OCC) libraries (PythonOCC)
+- NumPy
+- Pandas
+- Tkinter
+
+## Installation
+
+1. Installez Python 3.x depuis Python.org.
+2. Installez RoboDK et assurez-vous qu'il est correctement configuré sur votre système.
+3. Installez les bibliothèques Python requises:
+    ```bash
+    pip install numpy pandas matplotlib openpyxl
+    ```
+4. Installez PythonOCC:
+    ```bash
+    pip install pythonocc-core
+    ```
+
+## Structure des Fichiers
+
+- `etape1.py`: Script principal pour la lecture et le traitement des données CAO, la configuration des courbes et la détection des collisions.
+- `etape3.py`: Script pour exécuter les trajectoires de soudage en utilisant l'algorithme A* et RoboDK.
+- `functions.py`: Contient des fonctions d'assistance pour le traitement des données CAO, la détection des collisions et le calcul des angles.
+- `interface.py`: Interface graphique basée sur Tkinter pour la sélection et le test des courbes pour le soudage.
+- `astar.py` class (dans etape1.py et etape3.py) : Implémente l'algorithme A* pour la planification de trajectoire en 3D.
+- `README.md`: Ce fichier, fournissant un aperçu du projet.
+
+## Utilisation
+
+### Exécution de l'Interface
+
+Pour exécuter l'interface de sélection et de test des courbes :
+```bash
+python interface.py
+```
+
+## Descriptions des Fonctions
+1. etape1.py
+- Lit et traite les données CAO.
+- Configure les courbes et détecte les intersections.
+- Utilise les fonctions de functions.py pour déterminer les trajectoires et les angles pour le soudage.
+
+2. etape3.py
+- Exécute les trajectoires de soudage en utilisant l'algorithme A* et RoboDK.
+- Utilise les données des courbes traitées et effectue les opérations de soudage.
+
+3. functions.py
+- `set_curves()`: Lit et traite les données CAO pour extraire les courbes et les intersections.
+- `create_curves(curveList)`: Ajoute les courbes détectées à RoboDK.
+- `split_solid0_into_parts(mainfaces)`: Divise un solid0 en parties et renvoie les points de chaque partie.
+- `interpolate_points(start, end, step_size=1.0)`: Génère des points interpolés entre deux points.
+- `points_of_each_solid(solids)`: Renvoie les points pour chaque objet solide.
+- `points_of_each_face(mainfaces)`: Renvoie les points pour chaque face.
+- `find_way(curveList, curve)`: Détermine l'axe sur lequel se trouve la courbe.
+- `rotation_angles(intersectSolid1, intersectSolid2, curve, curveList, grupFace, solid0Liste)`: Calcule les angles de rotation pour aborder la courbe.
+- `testCollision(x_range, y_range, z_range, x_ref, y_ref, z_ref, rx, ry, rz, step)`: Vérifie les collisions et renvoie les coordonnées et les angles qui évitent les collisions.
+
+4. functions.py
+- Fournit une interface graphique pour la sélection et le test des courbes.
+- Utilise Tkinter pour l'interface et subprocess pour exécuter les scripts.
+
+5. astar.py
+- `__init__(self, start, goal, obstacles, resolution=0.5)`: Initialise l'algorithme A* avec les points de départ et d'arrivée, les obstacles et la résolution.
+- `heuristic_fun(self, node)`: Fonction heuristique pour estimer le coût entre le nœud actuel et l'objectif.
+- `get_neighbors(self, node)`: Récupère les nœuds voisins du nœud actuel.
+- `is_collide(self, point)`: Vérifie si un point entre en collision avec un obstacle.
+- `run(self, N=None)`: Exécute l'algorithme A* pour trouver le chemin le plus court.
+- `path(self)`: Construit le chemin du point de départ à l'objectif.
+- `visualization(self)`: Visualise le chemin et les obstacles (optionnel).
+
+## Références
+Ce code est adapté de l'implémentation de la planification de trajectoire 3D avec l'algorithme A* par zhm-real. L'implémentation originale peut être trouvée à l'adresse :
 https://github.com/zhm-real/PathPlanning/blob/master/Search_based_Planning/Search_3D/Astar3D.py
 
