@@ -193,8 +193,8 @@ if __name__ == '__main__':
 
     csv_file1 = "Welding_Datas/curve_tampons.csv"
     df1 = pd.read_csv(csv_file1)
-    first_curve = int(df1.iloc[0][0]) + 1
-    last_curve = int(df1.iloc[-1][0]) + 1
+    first_curve = int(df1.iloc[0][0]) 
+    last_curve = int(df1.iloc[-1][0]) 
 
     
     target_name = "righttop"  # Hedefin adı

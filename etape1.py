@@ -83,9 +83,9 @@ x_rot, y_rot, z_rot = rotation_angles(intersectSolid1, intersectSolid2, curve, c
 #the start and end points of some curves are reversed, the positions of the curves are added to the new list together with their angles
 curveListNew = []
 for i, curve_points in enumerate(curveList[curve]): 
-    if (way == "straight-right") or (way == "left-bottom") or (way == "straight-bottom") or (way == "bottom-right"): 
+    if (way == "straight-right") or (way == "left-bottom") or (way == "straight-bottom") or (way == "bottom-right") or (way == "bottom-left"): 
         curveListNew.insert(0,[curve_points[0], curve_points[1], curve_points[2]] + [x_rot, y_rot, z_rot]) #x + sağa, y - bana, mavi
-    elif (way == "straight-left") or (way == "right-bottom") or (way == "bottom-left"):
+    elif (way == "straight-left") or (way == "right-bottom"):
         curveListNew.append([curve_points[0], curve_points[1], curve_points[2]] + [x_rot, y_rot, z_rot]) #x + sağa, y - bana, mavi
 
 reference_frame = RDK.Item('KazanFrame', ITEM_TYPE_FRAME)

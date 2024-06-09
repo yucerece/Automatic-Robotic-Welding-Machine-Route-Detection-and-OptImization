@@ -59,12 +59,9 @@ first_shortest_path = pd.read_csv('Welding_Datas/first_shortest_path.csv')
 second_shortest_path = pd.read_csv('Welding_Datas/second_shortest_path.csv')
 
 RDK.setCollisionActive(COLLISION_ON)
-robot.setSpeed(10)
+robot.setSpeed(1000)
 
 start_time = time.time()
-
-righttop = RDK.Item('righttop')
-robot.MoveL(righttop)
 
 rxfirst = df.iloc[0]['rx']
 ryfirst = df.iloc[0]['ry']
@@ -79,6 +76,9 @@ liste1_x_y_z = first_shortest_path.iloc[-1]
 
 liste2 = second_shortest_path[:-1]
 liste2_x_y_z = second_shortest_path.iloc[-1]
+
+righttop = RDK.Item('righttop')
+robot.MoveL(righttop)
 
 #With the a* algorithm, it goes to the starting point where the welding will be made without collision
 for index, row in liste1.iterrows():
@@ -110,7 +110,7 @@ for index, row in df.iterrows():
     x_ref += tamponx
     y_ref += tampony
     z_ref += tamponz
-    pose_point_in_reference = KUKA_2_Pose([x_ref, y_ref, z_ref, rz, ry, rx])
+    pose_point_in_reference = KUKA_2_Pose([x_ref, y_ref, z_ref, rz, ry, rz])
     try:
         robot.setSpeed(10)
         robot.MoveL(pose_point_in_reference)
