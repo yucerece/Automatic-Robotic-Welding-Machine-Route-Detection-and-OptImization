@@ -121,7 +121,7 @@ for index, row in df.iterrows():
             continue
         else:
             raise e
-exit()
+
 robot.setSpeed(10)
 #Returns from the last point of welding with a* algorithm without collision
 for index, row in liste2.iterrows():
