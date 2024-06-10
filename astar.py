@@ -197,7 +197,7 @@ if __name__ == '__main__':
     last_curve = int(df1.iloc[-1][0]) 
 
     
-    target_name = "righttop"  # Hedefin adı
+    target_name = "lefttop"  # Hedefin adı
     target = RDK.Item(target_name, ITEM_TYPE_TARGET)
     pose = target.Pose().Pos()
     xs, ys, zs = pose
@@ -242,7 +242,7 @@ if __name__ == '__main__':
     frac_start = [xs - int(xs), ys - int(ys), zs - int(zs)]
 
     #target_name = "target"  # name of the target
-    target_name = "rightbottom"
+    target_name = "leftbottom"
     target = RDK.Item(target_name, ITEM_TYPE_TARGET)
     pose = target.Pose().Pos()
     xe, ye, ze = pose

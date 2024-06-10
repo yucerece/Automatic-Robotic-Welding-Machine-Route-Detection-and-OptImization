@@ -80,6 +80,7 @@ liste2_x_y_z = second_shortest_path.iloc[-1]
 righttop = RDK.Item('righttop')
 robot.MoveL(righttop)
 
+previous = []
 #With the a* algorithm, it goes to the starting point where the welding will be made without collision
 for index, row in liste1.iterrows():
     x,y,z = row[0], row[1], row[2]
@@ -89,17 +90,50 @@ for index, row in liste1.iterrows():
     z += liste1_x_y_z['z']
 
     pose_point_in_reference = KUKA_2_Pose([x, y, z, rzfirst, ryfirst, rxfirst])
+    previous.append([x, y, z, rzfirst, ryfirst, rxfirst])
     
     try:
+        robot.setSpeed(100)
         # Hedefe doğrudan robotu hareket ettir
-        robot.setSpeed(10)
         robot.MoveL(pose_point_in_reference)
     except StoppedError as e:
         if "Collision detected" in str(e):
             print("Collision detected, closing collision control.")
+            print(x,y,z,rzlast, rylast, rxlast)
             continue
         else:
             raise e
+    """
+    try:
+        robot.setSpeed(100)
+        # Hedefe doğrudan robotu hareket ettir
+        robot.MoveL(pose_point_in_reference)
+    except TargetReachError as e:
+        if "Collision detected" in str(e):
+            print("Collision detected, closing collision control. 3")
+            
+            RDK.setCollisionActive(COLLISION_OFF)
+            pose_point_in_reference = KUKA_2_Pose(previous[index-1])
+            robot.MoveL(pose_point_in_reference)
+            print(pose_point_in_reference)
+            RDK.setCollisionActive(COLLISION_ON)
+            
+            continue
+    except StoppedError as e:
+        if "Collision detected" in str(e):
+            print("Collision detected, closing collision control. 3")
+            
+            RDK.setCollisionActive(COLLISION_OFF)
+            pose_point_in_reference = KUKA_2_Pose(previous[index-1])
+            robot.MoveL(pose_point_in_reference)
+            print(pose_point_in_reference)
+            RDK.setCollisionActive(COLLISION_ON)
+            
+            continue
+        else:
+            print(e)
+            raise e
+        """
 
 #Welds with saved angles and buffer points
 for index, row in df.iterrows():
@@ -110,10 +144,21 @@ for index, row in df.iterrows():
     x_ref += tamponx
     y_ref += tampony
     z_ref += tamponz
-    pose_point_in_reference = KUKA_2_Pose([x_ref, y_ref, z_ref, rz, ry, rz])
+    pose_point_in_reference = KUKA_2_Pose([x_ref, y_ref, z_ref, rz, ry, rx])
     try:
-        robot.setSpeed(10)
+        robot.setSpeed(100)
         robot.MoveL(pose_point_in_reference)
+    except TargetReachError as e:
+        if "Collision detected" in str(e):
+            print("Collision detected, closing collision control. 3")
+            
+            RDK.setCollisionActive(COLLISION_OFF)
+            pose_point_in_reference = KUKA_2_Pose(previous[index-1])
+            robot.MoveL(pose_point_in_reference)
+            print(pose_point_in_reference)
+            RDK.setCollisionActive(COLLISION_ON)
+            
+            continue
     except StoppedError as e:
         if "Collision detected" in str(e):
             print("Collision detected, closing collision control.")
